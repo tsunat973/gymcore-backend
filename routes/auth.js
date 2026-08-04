@@ -1,3 +1,4 @@
+//登録、ログイン用
 const express = require('express');
 const bcrypt = require('bcrypt');
 const sqlite3 = require('sqlite3').verbose();

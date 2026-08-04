@@ -1,11 +1,13 @@
 require('dotenv').config();
 const express = require('express');
 const authRoutes = require('./routes/auth');
+const recordRoutes = require('./routes/records');
 const app = express();
 const PORT = 3000;
 
 app.use(express.json()); //jsonを受け取れるように
 app.use('/api/auth', authRoutes);
+app.use('/api/records', recordRoutes);
 
 //動作確認のルート
 
