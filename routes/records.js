@@ -25,4 +25,16 @@ router.post('/',verifyToken,  async (req, res) => {
 
 });
 
+router.get('/:exerciseId', verifyToken, (req, res) => {
+    const exerciseId = req.params.exerciseId;
+    db.all('SELECT * FROM records WHERE exercise_id = ?', [exerciseId], (err, rows) => {
+    if(err) {
+        return res.status(500).json({ error: 'サーバーエラー' });
+    }
+    if( !rows) {
+        return res.status(404).json({ error: '種目が見つかりません' });
+    }
+    res.status(200).json(rows);
+  })
+})
 module.exports = router;
