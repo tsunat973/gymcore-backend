@@ -23,6 +23,7 @@ router.post('/register', async (req, res) => {
             [email, hashedPassword],
             function (err) {
                 if (err) {
+                    console.log(err);
                     return res.status(400).json({ error: 'そのメールアドレスは既に使われています' });
                 }
                 res.status(201).json({ message: '登録成功', userId: this.lastID });

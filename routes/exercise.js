@@ -38,4 +38,40 @@ router.get('/', verifyToken, (req, res) => {
 });
 
 
+router.delete('/:id', verifyToken, (req, res) => {
+    const recordId = req.params.id;
+
+    db.run('DELETE FROM exercises WHERE id = ?', [recordId],
+        function (err) {
+            if (err) {
+                return res.status(500).json({ error: 'サーバーエラー' });
+            }
+            if(this.changes === 0) {
+                return res.status(404).json({error: '指定された種目が見つかりません' });
+            }
+            res.status(200).json({ message: '削除しました', deletenum: this.changes });
+        }
+    )
+})
+
+router.put('/:id', verifyToken, (req, res) => {
+    const recordId = req.params.id;
+    const { name } = req.body;
+
+    db.run(
+        'UPDATE exercises SET name = ? WHERE id = ?',
+        [name, recordId],
+        function (err) {
+              if (err) {
+                return res.status(500).json({ error: 'サーバーエラー' });
+            }
+            if(this.changes === 0) {
+                return res.status(404).json({error: '指定された種目が見つかりません' });
+            }
+
+            res.status(200).json({ message: '変更しました', changenum: this.changes });
+        }
+        )
+})
+
 module.exports = router;
