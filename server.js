@@ -4,8 +4,11 @@ const authRoutes = require('./routes/auth');
 const recordRoutes = require('./routes/records');
 const exerciseRoutes = require('./routes/exercise');
 const app = express();
-const PORT = 3000;
+const cors = require('cors');
+const PORT = 3001;
 
+
+app.use(cors());
 app.use(express.json()); //jsonを受け取れるように
 app.use('/api/auth', authRoutes);
 app.use('/api/records', recordRoutes);
